@@ -13,7 +13,7 @@ const flipLed = async () => {
 
 app.get('/flip', async (req, res) => {
   const ledValue = await flipLed();
-  res.send('good flip<br>Current Value: ' + ledValue);
+  res.send('good flip!<br>Current Value: ' + ledValue);
 });
 
 app.listen(8081);
