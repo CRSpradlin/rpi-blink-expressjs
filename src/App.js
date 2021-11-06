@@ -4,14 +4,10 @@ import './App.css';
 import { useState } from 'react';
 import { io } from 'socket.io-client';
 
-const VARS = {
-  socketUrl: 'pi.crspradlin.org:3001'
-}
-
 function App() {
   const [ledValue, setLedValue] = useState(0);
 
-  const socket = io(VARS.socketUrl);
+  const socket = io();
 
   const buttonClicked = () => {
     socket.emit('toggle-emit');
