@@ -19,7 +19,7 @@ io.on('connection', (socket) => {
     console.log('a user connected');
     socket.on('toggle-emit', async () => {
         const newValue = await flipLed();
-        socket.emit('toggle-finish', newValue);
+        io.sockets.emit('toggle-finish', newValue);
     });
 });
 
