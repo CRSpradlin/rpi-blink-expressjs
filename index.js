@@ -16,9 +16,7 @@ const flipLed = async () => {
 }
 
 io.on('connection', async (socket) => {
-    console.log('a user connected');
-    const newValue = await flipLed();
-    io.sockets.emit('toggle-finish', newValue);
+    socket.emit('toggle-finish', await led.read());
     socket.on('toggle-emit', async () => {
         const newValue = await flipLed();
         io.sockets.emit('toggle-finish', newValue);
