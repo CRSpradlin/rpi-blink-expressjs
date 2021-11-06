@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const { Server } = require("socket.io");
 const app = express();
 const http = require('http');
@@ -20,6 +21,10 @@ io.on('connection', (socket) => {
         const newValue = await flipLed();
         socket.emit('toggle-finish', newValue);
     });
+});
+
+app.use((req, res, next) => {
+    res.sendFile(path.join(__dirname, "..", "build", "index.html"));
 });
 
 server.listen(3001, () => {
