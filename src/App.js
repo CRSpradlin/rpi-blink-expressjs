@@ -1,27 +1,33 @@
 // import logo from './logo.svg';
 import Button from '@mui/material/Button';
 import './App.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 
-const socket = io();
+let socket;
 
 function App() {
   const [ledValue, setLedValue] = useState(0);
   const [buttonDisabled, setButtonDisabled] = useState(false);
 
+  useEffect(() => {
+    socket = io();
+
+    socket.connect();
+
+    socket.on('toggle-finish', (value) => {
+      setLedValue(value);
+    });
+  
+    socket.on('toggle-done', () => {
+      setButtonDisabled(false);
+    });
+  })
+
   const buttonClicked = () => {
     socket.emit('toggle-emit');
     setButtonDisabled(true);
   };
-
-  socket.on('toggle-finish', (value) => {
-    setLedValue(value);
-  });
-
-  socket.on('toggle-done', () => {
-    setButtonDisabled(false);
-  })
 
   return (
     <div className="App">
