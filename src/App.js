@@ -4,11 +4,11 @@ import './App.css';
 import { useState } from 'react';
 import { io } from 'socket.io-client';
 
+const socket = io();
+
 function App() {
   const [ledValue, setLedValue] = useState(0);
   const [buttonDisabled, setButtonDisabled] = useState(false);
-
-  const socket = io();
 
   const buttonClicked = () => {
     socket.emit('toggle-emit');
