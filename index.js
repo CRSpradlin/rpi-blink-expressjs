@@ -20,6 +20,7 @@ io.on('connection', async (socket) => {
     socket.on('toggle-emit', async () => {
         const newValue = await flipLed();
         io.sockets.emit('toggle-finish', newValue);
+        socket.emit('toggle-done', true);
     });
 });
 

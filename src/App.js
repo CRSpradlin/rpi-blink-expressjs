@@ -6,22 +6,28 @@ import { io } from 'socket.io-client';
 
 function App() {
   const [ledValue, setLedValue] = useState(0);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
 
   const socket = io();
 
   const buttonClicked = () => {
     socket.emit('toggle-emit');
-  }
+    setButtonDisabled(true);
+  };
 
   socket.on('toggle-finish', (value) => {
     setLedValue(value);
+  });
+
+  socket.on('toggle-done', () => {
+    setButtonDisabled(false);
   })
 
   return (
     <div className="App">
       <header className="App-header">
         <p>Value: {ledValue}</p>
-        <Button onClick={() => buttonClicked()} variant="outlined">Toggle</Button>
+        <Button disabled={buttonDisabled} onClick={() => buttonClicked()} variant="outlined">Toggle</Button>
       </header>
     </div>
   );
